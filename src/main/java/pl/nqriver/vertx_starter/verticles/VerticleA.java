@@ -2,19 +2,23 @@ package pl.nqriver.vertx_starter.verticles;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class VerticleA extends AbstractVerticle {
 
+  public static final Logger LOGGER = LoggerFactory.getLogger(VerticleA.class.getName());
+
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
-    System.out.println("Start of " + this.getClass().getSimpleName());
+    LOGGER.info("Start {}", getClass().getSimpleName());
     vertx.deployVerticle(new VerticleAA(), whenDeployed -> {
-      System.out.println("Deployed " + getClass().getSimpleName());
+      LOGGER.info("Deployed {}", getClass().getSimpleName());
       vertx.undeploy(whenDeployed.result());
     });
 
     vertx.deployVerticle(new VerticleAB(), whenDeployed -> {
-      System.out.println("Deployed " + getClass().getSimpleName());
+      LOGGER.info("Deployed {}", getClass().getSimpleName());
 
     });
     startPromise.complete();

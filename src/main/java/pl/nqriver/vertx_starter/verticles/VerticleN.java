@@ -2,14 +2,20 @@ package pl.nqriver.vertx_starter.verticles;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class VerticleN extends AbstractVerticle {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(VerticleN.class.getName());
+
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
-    System.out.println("Start of " + this.getClass().getSimpleName() +
-      " on thread: " + Thread.currentThread().getName() +
-      " with configuration" + config().toString());
+    LOGGER.info("Start of: {} on thread: {} with config: {}",
+      getClass().getSimpleName(),
+      Thread.currentThread().getName(),
+      config().toString());
+
     startPromise.complete();
   }
 
